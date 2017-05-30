@@ -3,10 +3,14 @@ import _ from 'underscore';
 
 import Task from 'app/models/task';
 
+// do not use before $(document).ready
+var taskTemplate;
+
 var taskData = [
   {
     title: 'Mow the lawn',
-    description: 'Must be finished before BBQ on Sat afternoon'
+    description: 'Must be finished before BBQ on Sat afternoon',
+    completed: true
   }, {
     title: 'Go to the Bank',
     description: 'Need to make a transfer'
@@ -16,10 +20,18 @@ var taskData = [
   }
 ];
 
-var myTask = new Task(taskData[0]);
+var render = function(task) {
+  var jsonTask = task.toJSON();
+  var generatedHTML = taskTemplate(jsonTask);
+
+  $('.todo-items').append(generatedHTML);
+};
 
 $(document).ready(function() {
-  console.log("Title: " + myTask.get("title"));
-  console.log("Description: " + myTask.get("description"));
-  console.log(myTask.get("doesNotExist"));
+  taskTemplate = _.template($('#task-item-template').html());
+
+  taskData.forEach(function(rawTask) {
+    var task = new Task(rawTask);
+    render(task);
+  });
 });
