@@ -93,9 +93,10 @@ $(document).ready(function() {
 
   $('#add-task').click(function(event) {
     var formData = readTaskForm();
-    console.log(formData);
 
     var task = new Task(formData);
-    render(task);
+    taskList.add(task);
+
+    renderList(taskList);
   });
 });
