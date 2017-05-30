@@ -2,6 +2,7 @@ import $ from 'jquery';
 import _ from 'underscore';
 
 import Task from 'app/models/task';
+import TaskList from './app/collections/task_list';
 
 // do not use before $(document).ready
 var taskTemplate;
@@ -17,8 +18,13 @@ var taskData = [
   }, {
     title: 'Tune the Piano',
     description: 'High C is missing or something???'
+  },
+  {
+    title: 'Learn Backbone',
+    description: "It's great."
   }
 ];
+
 
 var readTaskForm = function() {
   var titleData = $('#title').val();
@@ -50,13 +56,40 @@ var render = function(task) {
   $('.todo-items').append(generatedHTML);
 };
 
+
+var renderList = function(taskList) {
+  // Clear the unordered list
+  $('.todo-items').empty();
+
+  // Iterate through the list rendering each Task
+  taskList.each(function(task) {
+    render(task);
+  });
+};
+
 $(document).ready(function() {
   taskTemplate = _.template($('#task-item-template').html());
 
-  taskData.forEach(function(rawTask) {
-    var task = new Task(rawTask);
-    render(task);
-  });
+
+  var  taskList = new TaskList(taskData);
+
+  renderList(taskList);
+
+  // Iterate through the list rendering each Task
+  //   taskList.each(function(task) {
+  //     render(task);
+  //   });
+  // };
+
+    // taskList.each(function(task) {
+    //   render(task);
+    // });
+  // taskData.forEach(function(rawTask) {
+  //   var task = new Task(rawTask);
+  //   render(task);
+  // });
+
+
 
   $('#add-task').click(function(event) {
     var formData = readTaskForm();
