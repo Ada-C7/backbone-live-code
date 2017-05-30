@@ -6,6 +6,7 @@ import TaskList from './app/collections/task_list';
 
 // do not use before $(document).ready
 var taskTemplate;
+var taskList;
 
 var taskData = [
   {
@@ -51,9 +52,13 @@ var readTaskForm = function() {
 
 var render = function(task) {
   var jsonTask = task.toJSON();
-  var generatedHTML = taskTemplate(jsonTask);
+  var generatedHTML = $(taskTemplate(jsonTask));
 
   $('.todo-items').append(generatedHTML);
+
+  generatedHTML.find("button.alert").click({task: task}, function(params) {
+    taskList.remove(params.data.task);
+  });
 };
 
 
@@ -69,7 +74,7 @@ var renderList = function(taskList) {
 
 $(document).ready(function() {
   taskTemplate = _.template($('#task-item-template').html());
-  var  taskList = new TaskList(taskData);
+  taskList = new TaskList(taskData);
 
   taskList.on("update", function() {
     renderList(taskList);
