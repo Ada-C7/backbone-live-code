@@ -16,17 +16,86 @@ var taskData = [
   }
 ];
 
-var myTask = new Task({
+var individualTaskData = {
   title: "Create a Model!",
   description: "Need to extend Backbone.Model",
   completed: false
+};
+var myTask = new Task(individualTaskData);
+
+var getFormData = function() {
+  var formTitle = $("#title").val();
+  $("#title").val('');
+
+  var formDescription = $("#description").val();
+  $("#description").val('');
+
+  // Get Checkbox Checked
+  var formCompleted = $('#completed-checkbox').is(":checked");
+  // Clear Checkbox
+  $('#completed-checkbox').prop('checked', false);
+
+  return {
+    title: formTitle,
+    description: formDescription,
+    completed: formCompleted
+  };
+};
+
+var render = function(task) {
+  // Get the Template using jQuery
+  var templateText = $('#taskItemTemplate').html();
+
+  // Create an Underscore Template Object
+  var templateObject = _.template(templateText);
+
+  // Fill in the ERB with data from
+  // our task.
+  var compiledHTML = templateObject(task.toJSON());
+
+  // Append the result to the DOM
+  $('.todo-items').append(compiledHTML);
+
+};
+var myOtherTask = new Task({
+  title: "Make another Task",
+  completed: true
 });
 
 $(document).ready(function() {
-  console.log(myTask);
+  render(myTask);
+  render(myOtherTask);
+
+  $("#add-task").click(function() {
+    var formData = getFormData();
+    var newTask = new Task(formData);
+    render(newTask);
+  });
+
 });
+
+
+
+
+
+
 
 
 
 
 // end
+
+// console.log(myTask);
+// console.log(
+//     myTask.get("title")
+// );
+//
+// myTask.set("completed", true);
+//
+// myTask.set({
+//   title: "This is Backbone!",
+//   description: "Great!"
+// });
+//
+// console.log("Completed?  " + myTask.get("completed"));
+// console.log(myTask);
