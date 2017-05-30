@@ -1,4 +1,7 @@
 import $ from 'jquery';
+import _ from 'underscore';
+
+import Task from 'app/models/task';
 
 var taskData = [
   {
@@ -13,6 +16,10 @@ var taskData = [
   }
 ];
 
+var myTask = new Task(taskData[0]);
+
 $(document).ready(function() {
-  $('#test-area').append($('<p>Hello World!</p>'));
+  console.log("Title: " + myTask.get("title"));
+  console.log("Description: " + myTask.get("description"));
+  console.log(myTask.get("doesNotExist"));
 });
