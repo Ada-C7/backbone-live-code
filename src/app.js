@@ -69,26 +69,14 @@ var renderList = function(taskList) {
 
 $(document).ready(function() {
   taskTemplate = _.template($('#task-item-template').html());
-
-
   var  taskList = new TaskList(taskData);
 
+  taskList.on("update", function() {
+    renderList(taskList);
+  });
+
+
   renderList(taskList);
-
-  // Iterate through the list rendering each Task
-  //   taskList.each(function(task) {
-  //     render(task);
-  //   });
-  // };
-
-    // taskList.each(function(task) {
-    //   render(task);
-    // });
-  // taskData.forEach(function(rawTask) {
-  //   var task = new Task(rawTask);
-  //   render(task);
-  // });
-
 
 
   $('#add-task').click(function(event) {
@@ -96,7 +84,5 @@ $(document).ready(function() {
 
     var task = new Task(formData);
     taskList.add(task);
-
-    renderList(taskList);
   });
 });
