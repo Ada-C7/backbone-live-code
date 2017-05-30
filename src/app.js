@@ -1,4 +1,7 @@
 import $ from 'jquery';
+import _ from 'underscore';
+import Task from './models/task.js';
+
 
 var taskData = [
   {
@@ -13,7 +16,17 @@ var taskData = [
   }
 ];
 
-$(document).ready(function() {
-  console.log("Yippie!");
-  $('#test-area').append($('<p>Hello World!</p>'));
+var myTask = new Task({
+  title: "Create a Model!",
+  description: "Need to extend Backbone.Model",
+  completed: false
 });
+
+$(document).ready(function() {
+  console.log(myTask);
+});
+
+
+
+
+// end
