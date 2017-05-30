@@ -14,5 +14,6 @@ var taskData = [
 ];
 
 $(document).ready(function() {
+  console.log("Yippie!");
   $('#test-area').append($('<p>Hello World!</p>'));
 });
