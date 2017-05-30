@@ -20,6 +20,29 @@ var taskData = [
   }
 ];
 
+var readTaskForm = function() {
+  var titleData = $('#title').val();
+  $('#title').val('');
+
+  var descriptionData = $('#description').val();
+  $('#description').val('');
+
+  var completedData = $('#completed-checkbox').prop('checked');
+  $('#completed-checkbox').prop('checked', false);
+
+  var formData = {};
+  if (titleData && titleData != "") {
+    formData["title"] = titleData
+  }
+  if (descriptionData && descriptionData != "") {
+    formData["description"] = descriptionData
+  }
+  if (completedData && completedData != "") {
+    formData["completed"] = completedData
+  }
+  return formData;
+};
+
 var render = function(task) {
   var jsonTask = task.toJSON();
   var generatedHTML = taskTemplate(jsonTask);
@@ -32,6 +55,14 @@ $(document).ready(function() {
 
   taskData.forEach(function(rawTask) {
     var task = new Task(rawTask);
+    render(task);
+  });
+
+  $('#add-task').click(function(event) {
+    var formData = readTaskForm();
+    console.log(formData);
+
+    var task = new Task(formData);
     render(task);
   });
 });
