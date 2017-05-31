@@ -2,16 +2,15 @@ import $ from 'jquery';
 import _ from 'underscore';
 import Task from './models/task.js';
 import TaskList from './collections/task_list.js';
+import TaskView from './views/task_view.js';
 
 var taskData = [
   {
     title: 'Mow the lawn',
     description: 'Must be finished before BBQ on Sat afternoon',
-    completed: false
   }, {
     title: 'Go to the Bank',
     description: 'Need to make a transfer',
-    completed: false
 
   }, {
     title: 'Tune the Piano',
@@ -57,7 +56,7 @@ var render = function(task) {
 
   // Fill in the ERB with data from
   // our task.
-  console.log(templateObject(task.toJSON()));
+  //console.log(templateObject(task.toJSON()));
   var compiledHTML = $(templateObject(task.toJSON()));
 
   // Append the result to the DOM
@@ -79,7 +78,22 @@ var renderList = function(taskList) {
 
   // Loop Through rendering each task
   taskList.each(function(task) {
-    render(task);
+    // Create a TaskView
+    var taskView = new TaskView({
+      model: task, // get model
+        // the template
+      template: _.template( $('#taskItemTemplate').html() )
+    });
+    // Render the View
+    // Then append the result
+    // to the DOM
+    $(".todo-items").append(taskView.render().el);
+
+
+
+
+    // task.toggleComplete();
+    // render(task);
   });
 };
 
