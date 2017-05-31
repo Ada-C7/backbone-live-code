@@ -68,7 +68,7 @@ var renderList = function(taskList) {
 
   // Iterate through the list rendering each Task
   taskList.each(function(task) {
-    task.logStatus();
+    // task.logStatus();
     render(task);
   });
 };
@@ -88,8 +88,15 @@ $(document).ready(function() {
   $('#add-task').click(function(event) {
     var formData = readTaskForm();
 
-
     var task = new Task(formData);
+
+    //test toggleComplete function
+    task.toggleComplete();
+    console.log(task.logStatus());
+
+    task.toggleComplete();
+    console.log(task.logStatus());
+
     taskList.add(task);
   });
 });
