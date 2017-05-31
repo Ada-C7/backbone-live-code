@@ -17,10 +17,14 @@ var TaskView = Backbone.View.extend({
     this.$el.html(compiledTemplate);
     return this;
   },
+
+
   events: {
     'click button.alert': "deleteTask",
     'click button.success': "toggleComplete"
   },
+
+
   deleteTask: function(e) {
     this.model.destroy();
   },

@@ -5,6 +5,7 @@ import Task from 'app/models/task';
 import TaskList from './app/collections/task_list';
 
 import TaskView from './app/views/task_view.js';
+import TaskListView from './app/views/task_list_view.js';
 
 // do not use before $(document).ready
 var taskTemplate;
@@ -52,52 +53,32 @@ var readTaskForm = function() {
   return formData;
 };
 
-// var render = function(task) {
-//   var jsonTask = task.toJSON();
-//   var generatedHTML = $(taskTemplate(jsonTask));
-//
-//   $('.todo-items').append(generatedHTML);
-//
-//   generatedHTML.find("button.alert").click({task: task}, function(params) {
-//     taskList.remove(params.data.task);
-//   });
-// };
-
-
-var renderList = function(taskList) {
-  // Clear the unordered list
-  $('.todo-items').empty();
-
-  taskList.each(function(task) {
-
-    // Create a new TaskView with the model & template
-    var taskView = new TaskView({
-      model: task,
-      template: _.template($('#task-item-template').html())
-    });
-
-    // Then render the TaskView
-    // And append the resulting HTML to the DOM.
-    $('.todo-items').append(taskView.render().$el);
-  });
-};
-
 $(document).ready(function() {
   taskTemplate = _.template($('#task-item-template').html());
   taskList = new TaskList(taskData);
 
-  taskList.on("update", function() {
-    renderList(taskList);
+  var taskListView = new TaskListView({
+    taskTemplate: taskTemplate,
+    model: taskList,
+    el: $('main')
   });
 
+  taskListView.render();
 
-  renderList(taskList);
 
 
-  $('#add-task').click(function(event) {
-    var formData = readTaskForm();
+  // taskList.on("update", function() {
+  //   renderList(taskList);
+  // });
+  //
+  //
+  // renderList(taskList);
 
-    var task = new Task(formData);
-    taskList.add(task);
-  });
+
+  // $('#add-task').click(function(event) {
+  //   var formData = readTaskForm();
+  //
+  //   var task = new Task(formData);
+  //   taskList.add(task);
+  // });
 });
