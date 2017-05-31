@@ -7,9 +7,9 @@ var Task = Backbone.Model.extend({
     "completed": false
   },
   initialize: function(params) {
-    console.log("Task initialized: " + this.get("title"));
-    // just to see what params looks like
-    console.log(params);
+    // console.log("Task initialized: " + this.get("title"));
+    // // just to see what params looks like
+    // console.log(params);
   },
   logStatus: function() {
     console.log("Title: " + this.get("title"));
