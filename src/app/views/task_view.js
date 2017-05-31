@@ -9,6 +9,8 @@ var TaskView = Backbone.View.extend({
   initialize: function(params) {
     // this.model = params.model;
     this.template = params.template;
+
+    this.listenTo(this.model, "change", this.render);
   },
   render: function() {
     var compiledTemplate = this.template(this.model.toJSON());
@@ -17,17 +19,21 @@ var TaskView = Backbone.View.extend({
   },
   events: {
     'click button.alert': "deleteTask",
-    'click button.success': "alertMessage"
+    'click button.success': "toggleComplete"
   },
   deleteTask: function(e) {
     this.model.destroy();
   },
-  alertMessage: function(){
-    alert("Hey!");
+  toggleComplete: function(){
+    this.model.toggleComplete();
+    // console.log(this.model.get("completed"));
+    // this.render();
     }
 });
 
 export default TaskView;
+
+
 
 
 
