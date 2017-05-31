@@ -3,6 +3,8 @@ import _ from 'underscore';
 import Task from './models/task.js';
 import TaskList from './collections/task_list.js';
 import TaskView from './views/task_view.js';
+import TaskListView from './views/task_list_view.js';
+
 
 var taskData = [
   {
@@ -20,13 +22,6 @@ var taskData = [
 ];
 
 var myTaskList = new TaskList(taskData);
-
-var individualTaskData = {
-  title: "Create a Model!",
-  description: "Need to extend Backbone.Model",
-  completed: false
-};
-var myTask = new Task(individualTaskData);
 
 var getFormData = function() {
   var formTitle = $("#title").val();
@@ -47,54 +42,18 @@ var getFormData = function() {
   };
 };
 
-var myOtherTask = new Task({
-  title: "Make another Task",
-  completed: true
-});
 
-var renderList = function(taskList) {
-  // Clear the list
-  $(".todo-items").empty();
-
-  // Loop Through rendering each task
-  taskList.each(function(task) {
-    // Create a TaskView
-    var taskView = new TaskView({
-      model: task, // get model
-        // the template
-      template: _.template( $('#taskItemTemplate').html() )
-    });
-    // Render the View
-    // Then append the result
-    // to the DOM
-    $(".todo-items").append(taskView.render().el);
-
-
-
-
-    // task.toggleComplete();
-    // render(task);
-  });
-};
 
 $(document).ready(function() {
-  renderList(myTaskList);
 
-  myTaskList.on("update", function() {
-    renderList(myTaskList);
+  var myTaskListView = new TaskListView({
+    model: myTaskList,
+    template: _.template($('#taskItemTemplate').html()),
+    el: 'main'
   });
+  myTaskListView.render();
 
-  $("#add-task").click(function() {
-    // Creating a new Task
-    // With the form data
-    var task = new Task(getFormData());
 
-    // Add it to the list
-    myTaskList.add(task);
-
-    // re-render the list
-    // renderList(myTaskList);
-  });
 
 });
 

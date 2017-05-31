@@ -9,6 +9,8 @@ var TaskView = Backbone.View.extend({
   initialize: function(params) {
     this.template = params.template;
 
+    this.$el.addClass("task-item column column-block");
+
     this.listenTo(this.model, "change", this.render);
   },
   render: function() {
