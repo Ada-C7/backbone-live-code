@@ -68,6 +68,7 @@ var renderList = function(taskList) {
 
   // Iterate through the list rendering each Task
   taskList.each(function(task) {
+    task.logStatus();
     render(task);
   });
 };
@@ -86,6 +87,7 @@ $(document).ready(function() {
 
   $('#add-task').click(function(event) {
     var formData = readTaskForm();
+
 
     var task = new Task(formData);
     taskList.add(task);

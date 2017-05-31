@@ -5,6 +5,10 @@ var Task = Backbone.Model.extend({
     "title": "a task",
     "description": "task description",
     "completed": false
+  },
+  logStatus: function() {
+    console.log("Title: " + this.get("title"));
+    console.log("Completed: " + this.get("completed"));
   }
 });
 
