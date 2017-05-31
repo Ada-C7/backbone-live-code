@@ -1,20 +1,26 @@
 import $ from 'jquery';
 import _ from 'underscore';
 import Task from './models/task.js';
-
+import TaskList from './collections/task_list.js';
 
 var taskData = [
   {
     title: 'Mow the lawn',
-    description: 'Must be finished before BBQ on Sat afternoon'
+    description: 'Must be finished before BBQ on Sat afternoon',
+    completed: false
   }, {
     title: 'Go to the Bank',
-    description: 'Need to make a transfer'
+    description: 'Need to make a transfer',
+    completed: false
+
   }, {
     title: 'Tune the Piano',
-    description: 'High C is missing or something???'
+    description: 'High C is missing or something???',
+    completed: true
   }
 ];
+
+var myTaskList = new TaskList(taskData);
 
 var individualTaskData = {
   title: "Create a Model!",
@@ -51,10 +57,15 @@ var render = function(task) {
 
   // Fill in the ERB with data from
   // our task.
-  var compiledHTML = templateObject(task.toJSON());
+  console.log(templateObject(task.toJSON()));
+  var compiledHTML = $(templateObject(task.toJSON()));
 
   // Append the result to the DOM
   $('.todo-items').append(compiledHTML);
+
+  compiledHTML.find('button.alert').click({taskToRemove: task}, function(params){
+    myTaskList.remove(params.data.taskToRemove);
+  });
 
 };
 var myOtherTask = new Task({
@@ -62,14 +73,33 @@ var myOtherTask = new Task({
   completed: true
 });
 
+var renderList = function(taskList) {
+  // Clear the list
+  $(".todo-items").empty();
+
+  // Loop Through rendering each task
+  taskList.each(function(task) {
+    render(task);
+  });
+};
+
 $(document).ready(function() {
-  render(myTask);
-  render(myOtherTask);
+  renderList(myTaskList);
+
+  myTaskList.on("update", function() {
+    renderList(myTaskList);
+  });
 
   $("#add-task").click(function() {
-    var formData = getFormData();
-    var newTask = new Task(formData);
-    render(newTask);
+    // Creating a new Task
+    // With the form data
+    var task = new Task(getFormData());
+
+    // Add it to the list
+    myTaskList.add(task);
+
+    // re-render the list
+    // renderList(myTaskList);
   });
 
 });
