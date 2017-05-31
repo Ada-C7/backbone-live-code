@@ -47,26 +47,6 @@ var getFormData = function() {
   };
 };
 
-var render = function(task) {
-  // Get the Template using jQuery
-  var templateText = $('#taskItemTemplate').html();
-
-  // Create an Underscore Template Object
-  var templateObject = _.template(templateText);
-
-  // Fill in the ERB with data from
-  // our task.
-  //console.log(templateObject(task.toJSON()));
-  var compiledHTML = $(templateObject(task.toJSON()));
-
-  // Append the result to the DOM
-  $('.todo-items').append(compiledHTML);
-
-  compiledHTML.find('button.alert').click({taskToRemove: task}, function(params){
-    myTaskList.remove(params.data.taskToRemove);
-  });
-
-};
 var myOtherTask = new Task({
   title: "Make another Task",
   completed: true
