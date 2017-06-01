@@ -30,28 +30,7 @@ var taskData = [
 ];
 
 
-var readTaskForm = function() {
-  var titleData = $('#title').val();
-  $('#title').val('');
 
-  var descriptionData = $('#description').val();
-  $('#description').val('');
-
-  var completedData = $('#completed-checkbox').prop('checked');
-  $('#completed-checkbox').prop('checked', false);
-
-  var formData = {};
-  if (titleData && titleData != "") {
-    formData["title"] = titleData
-  }
-  if (descriptionData && descriptionData != "") {
-    formData["description"] = descriptionData
-  }
-  if (completedData && completedData != "") {
-    formData["completed"] = completedData
-  }
-  return formData;
-};
 
 $(document).ready(function() {
   taskTemplate = _.template($('#task-item-template').html());
@@ -75,10 +54,5 @@ $(document).ready(function() {
   // renderList(taskList);
 
 
-  // $('#add-task').click(function(event) {
-  //   var formData = readTaskForm();
-  //
-  //   var task = new Task(formData);
-  //   taskList.add(task);
-  // });
+
 });
