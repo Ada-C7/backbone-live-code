@@ -11,8 +11,10 @@ var TaskListView = Backbone.View.extend({
     this.listenTo(this.model, "update", this.render);
 
 //    console.log(this.el);
+  console.log(">>> Breadcrumbs #2 (Task list view init)");
   },
   render: function() {
+    console.log(">>> Breadcrumbs #3 (Task list render start)");
       // Clear the todo-items
     this.$('.todo-items').empty();
       // Saved a reference to 'this'
@@ -29,7 +31,7 @@ var TaskListView = Backbone.View.extend({
         // rendered the view and appended it to 'todo-items'
       that.$(".todo-items").append(taskView.render().$el);
     });
-
+    console.log(">>> Breadcrumbs #? (Task list render end)");
     return this;
   },
   events: {

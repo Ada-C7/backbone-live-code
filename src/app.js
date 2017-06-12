@@ -6,22 +6,25 @@ import TaskView from './views/task_view.js';
 import TaskListView from './views/task_list_view.js';
 
 
-var taskData = [
-  {
-    title: 'Mow the lawn',
-    description: 'Must be finished before BBQ on Sat afternoon',
-  }, {
-    title: 'Go to the Bank',
-    description: 'Need to make a transfer',
+// var taskData = [
+//   {
+//     title: 'Mow the lawn',
+//     description: 'Must be finished before BBQ on Sat afternoon',
+//   }, {
+//     title: 'Go to the Bank',
+//     description: 'Need to make a transfer',
+//
+//   }, {
+//     title: 'Tune the Piano',
+//     description: 'High C is missing or something???',
+//     completed: true
+//   }
+// ];
 
-  }, {
-    title: 'Tune the Piano',
-    description: 'High C is missing or something???',
-    completed: true
-  }
-];
+var myTaskList = new TaskList();
+myTaskList.fetch();
 
-var myTaskList = new TaskList(taskData);
+console.log(">>> Breadcrumbs #1 (Task list collection creation)");
 
 var getFormData = function() {
   var formTitle = $("#title").val();
@@ -45,40 +48,10 @@ var getFormData = function() {
 
 
 $(document).ready(function() {
-
   var myTaskListView = new TaskListView({
     model: myTaskList,
     template: _.template($('#taskItemTemplate').html()),
     el: 'main'
   });
   myTaskListView.render();
-
-
-
 });
-
-
-
-
-
-
-
-
-
-
-// end
-
-// console.log(myTask);
-// console.log(
-//     myTask.get("title")
-// );
-//
-// myTask.set("completed", true);
-//
-// myTask.set({
-//   title: "This is Backbone!",
-//   description: "Great!"
-// });
-//
-// console.log("Completed?  " + myTask.get("completed"));
-// console.log(myTask);

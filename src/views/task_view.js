@@ -12,12 +12,15 @@ var TaskView = Backbone.View.extend({
     this.$el.addClass("task-item column column-block");
 
     this.listenTo(this.model, "change", this.render);
+
+    console.log(">>> Breadcrumbs #4x (Task view init)");
   },
   render: function() {
 
     var compiledTemplate = this.template(this.model.toJSON());
 
     this.$el.html(compiledTemplate);
+    console.log(">>> Breadcrumbs #5x (Task view render)");
     return this;
   },
   events: {
