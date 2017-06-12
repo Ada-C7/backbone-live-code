@@ -13,6 +13,7 @@ var Task = Backbone.Model.extend({
   toggleComplete: function() {
     var newStatus = !(this.get('complete'));
     this.set('complete', newStatus);
+    this.save();
   }
 });
 

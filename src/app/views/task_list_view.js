@@ -67,7 +67,7 @@ var TaskListView = Backbone.View.extend({
     var rawTask = this.getInput();
 
     // Add the task to our collection
-    this.model.add(rawTask);
+    this.model.create(rawTask);
 
     // Clear the input form so the user can add another task
     this.clearInput();
