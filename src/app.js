@@ -41,7 +41,7 @@ var getFormData = function() {
   return {
     title: formTitle,
     description: formDescription,
-    completed: formCompleted
+    complete: formCompleted
   };
 };
 
