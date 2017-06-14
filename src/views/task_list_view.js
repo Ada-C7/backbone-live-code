@@ -58,8 +58,7 @@ var TaskListView = Backbone.View.extend({
   addTask: function() {
     var task = new Task(this.getFormData());
 
-    this.model.add(task);
-
+    this.model.create(task);
   }
 });
 
